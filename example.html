@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Joystick Test</title>
+</head>
+<body>
+    <canvas id="joystick" width="500" height="500" style="border:1px solid black;display:block;margin:0 auto;"></canvas>
+
+    <script src="eb_joystick.js"></script>
+
+    <script>
+        var FPS      = 60;
+        var canvas   = document.getElementById("joystick");
+        var joystick = New_Joystick().init(canvas, 100, 340, 150);
+        joystick.setValueRange(-1000, 1000);
+
+        var joystick2 = New_Joystick().init(canvas, 400, 340, 150);
+        joystick2.setValueRange(-1000, 1000);
+
+        setInterval(function(){
+            joystick.canvas.ctx.clearRect(0, 0, joystick.canvas.width, joystick.canvas.height);
+            joystick.draw();
+            joystick2.draw();
+
+            var values  = joystick.getValues();
+            var values2 = joystick2.getValues();
+
+            joystick.canvas.ctx.font = "22px Comic Sans MS";
+            joystick.canvas.ctx.fillText("X: "+values.x, 50, joystick.canvas.height - 50);
+            joystick.canvas.ctx.fillText("Y: "+values.y, 50, joystick.canvas.height - 25);
+
+            joystick.canvas.ctx.fillText("X: "+values2.x, 350, joystick.canvas.height - 50);
+            joystick.canvas.ctx.fillText("Y: "+values2.y, 350, joystick.canvas.height - 25);
+        }, 1000 / FPS);
+    </script>
+</body>
+</html>
