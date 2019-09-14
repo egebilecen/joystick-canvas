@@ -39,9 +39,9 @@ function New_Joystick()
                 }
             }
     
-            canvas.addEventListener("touchstart", function(e){
-                var x = e.touches[0].pageX;
-                var y = e.touches[0].pageY;
+            canvas.addEventListener("mousedown", function(e){
+                var x = e.layerX;
+                var y = e.layerY;
 
                 if(EB_Joystick.isTouchingToController(x, y))
                     EB_Joystick.status.holdingcircle = true;
@@ -49,7 +49,7 @@ function New_Joystick()
                 EB_Joystick.status.mousedown = true;
             });
     
-            canvas.addEventListener("touchend", function(e){
+            canvas.addEventListener("mouseup", function(e){
                 EB_Joystick.status.holdingcircle = false;
                 EB_Joystick.status.mousedown     = false;
     
@@ -57,7 +57,7 @@ function New_Joystick()
                 EB_Joystick.joystick.inner_circle.y = EB_Joystick.joystick.outer_circle.y;
             });
     
-            canvas.addEventListener("touchmove", function(e){
+            canvas.addEventListener("mousemove", function(e){
                 if(EB_Joystick.status.mousedown && EB_Joystick.status.holdingcircle)
                 {
                     var x = e.layerX;
