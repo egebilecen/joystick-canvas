@@ -60,8 +60,8 @@ function New_Joystick()
             canvas.addEventListener("mousemove", function(e){
                 if(EB_Joystick.status.mousedown && EB_Joystick.status.holdingcircle)
                 {
-                    var x = e.layerX;
-                    var y = e.layerY;
+                    var x = e.layerX - EB_Joystick.joystick.inner_circle.offsetX;
+                    var y = e.layerY - EB_Joystick.joystick.inner_circle.offsetY;
     
                     if(EB_Joystick.distanceBetweenTwoCoords(
                         {x:EB_Joystick.joystick.outer_circle.x, y:EB_Joystick.joystick.outer_circle.y},
