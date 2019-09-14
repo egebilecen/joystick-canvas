@@ -29,7 +29,9 @@ function New_Joystick()
                     width : width / 6,
                     r : width / 6 / 2,
                     x : x,
-                    y : y
+                    y : y,
+                    offsetX : 0,
+                    offsetY : 0
                 },
                 value_range : {
                     min : -100,
@@ -37,17 +39,17 @@ function New_Joystick()
                 }
             }
     
-            canvas.addEventListener("mousedown", function(e){
-                var x = e.layerX;
-                var y = e.layerY;
-                    
+            canvas.addEventListener("touchstart", function(e){
+                var x = e.touches[0].pageX;
+                var y = e.touches[0].pageY;
+
                 if(EB_Joystick.isTouchingToController(x, y))
                     EB_Joystick.status.holdingcircle = true;
                 
                 EB_Joystick.status.mousedown = true;
             });
     
-            canvas.addEventListener("mouseup", function(e){
+            canvas.addEventListener("touchend", function(e){
                 EB_Joystick.status.holdingcircle = false;
                 EB_Joystick.status.mousedown     = false;
     
@@ -55,7 +57,7 @@ function New_Joystick()
                 EB_Joystick.joystick.inner_circle.y = EB_Joystick.joystick.outer_circle.y;
             });
     
-            canvas.addEventListener("mousemove", function(e){
+            canvas.addEventListener("touchmove", function(e){
                 if(EB_Joystick.status.mousedown && EB_Joystick.status.holdingcircle)
                 {
                     var x = e.layerX;
@@ -109,6 +111,16 @@ function New_Joystick()
         {
             this.drawJoystick();
         },
+
+        setCalculationOffsetX : function(x)
+        {
+            this.joystick.inner_circle.offsetX = x;
+        },
+
+        setCalculationOffsetY : function(y)
+        {
+            this.joystick.inner_circle.offsetY = y;
+        },
     
         // Private Functions
         drawJoystick : function()
@@ -133,7 +145,7 @@ function New_Joystick()
     
         isTouchingToController : function(x, y)
         {
-            var dist = this.distanceBetweenTwoCoords({x:x, y:y}, {x:this.joystick.inner_circle.x, y:this.joystick.inner_circle.y});
+            var dist = this.distanceBetweenTwoCoords({x:x, y:y}, {x:this.joystick.inner_circle.x + this.joystick.inner_circle.offsetX, y:this.joystick.inner_circle.y + this.joystick.inner_circle.offsetY});
     
             if(dist <= this.joystick.inner_circle.width) return true;
     
