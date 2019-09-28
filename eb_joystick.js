@@ -97,11 +97,11 @@ function New_Joystick()
         {
             var ret_x =  this.valueMap(
                 this.joystick.inner_circle.x, 
-                Math.floor(this.joystick.outer_circle.x - this.joystick.outer_circle.r), Math.floor(this.joystick.outer_circle.x + this.joystick.outer_circle.r), 
+                this.joystick.outer_circle.x - this.joystick.outer_circle.r, this.joystick.outer_circle.x + this.joystick.outer_circle.r, 
                 this.joystick.value_range.min, this.joystick.value_range.max);
             var ret_y = -this.valueMap(
                 this.joystick.inner_circle.y, 
-                Math.floor(this.joystick.outer_circle.y - this.joystick.outer_circle.r), Math.floor(this.joystick.outer_circle.y + this.joystick.outer_circle.r), 
+                this.joystick.outer_circle.y - this.joystick.outer_circle.r, this.joystick.outer_circle.y + this.joystick.outer_circle.r, 
                 this.joystick.value_range.min, this.joystick.value_range.max);
     
             return {x: parseInt(ret_x), y: parseInt(ret_y)}
